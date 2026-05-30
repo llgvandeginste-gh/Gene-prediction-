@@ -4,12 +4,10 @@ import requests
 import gzip
 import io
 
-# --- PART 1: GENOME MAPPING & CLEANING ---
-print("Step 1: Mapping Dormouse to Human...")
 df_lookup = pd.read_csv('/Users/familievandeginste/Documents/GeneIDs/dormouse_to_mouse_1to1_complete_lookup.csv')
 df_ortho = pd.read_csv('/Users/familievandeginste/Documents/GeneIDs/Mouse to human orthologs homologs biomaRt distinct human (1).txt')
 
-# Clean strings to ensure matches
+# Cleaning strings to ensure matches
 df_lookup['mouse_gene_id'] = df_lookup['mouse_gene_id'].astype(str).str.strip()
 df_ortho['ensemblgene_id_mouse'] = df_ortho['ensemblgene_id_mouse'].astype(str).str.strip()
 
