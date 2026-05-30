@@ -5,13 +5,13 @@ df_exp = pd.read_csv('/Users/familievandeginste/Documents/GeneIDs/10_merged_174l
 df_all_dormouse = df_exp[['Gene']].copy()
 df_all_dormouse.rename(columns={'Gene': 'dormouse_id'}, inplace=True)
 
-# 2. The Lookup File (Dormouse to Mouse)
+# 2. The lookup file (Dormouse to Mouse)
 df_lookup = pd.read_csv('dormouse_to_mouse_1to1_complete_lookup_1.csv')
 
-# 3.Mouse to Human
+# 3.Mouse to human
 df_ortho = pd.read_csv('/Users/familievandeginste/Documents/GeneIDs/Mouse to human orthologs homologs biomaRt distinct human (2).txt')
 
-# --- CLEAN STRINGS ---
+# cleaning strings
 df_all_dormouse['dormouse_id'] = df_all_dormouse['dormouse_id'].astype(str).str.strip()
 df_lookup['dormouse_id'] = df_lookup['dormouse_id'].astype(str).str.strip()
 df_lookup['mouse_gene_id'] = df_lookup['mouse_gene_id'].astype(str).str.strip()
@@ -43,15 +43,11 @@ final_columns = [
 
 df_report = df_master[final_columns].copy()
 
-# Sort 
 df_report = df_report.sort_values(by=['dormouse_id'])
 
-# RESULT
 output_file = 'dormouse_complete_30000_traceability_list_1.csv'
 df_report.to_csv(output_file, index=False)
 
-# SUMMARY 
-print("\n" + "="*40)
 print("--- MASTER LIST ---")
 print(f"Total rows (with duplicates): {len(df_report)}")
 print(f"Total Dormouse IDs included:  {df_report['dormouse_id'].nunique()}")
