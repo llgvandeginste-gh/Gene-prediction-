@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# 1. Mapping - Keep your same filenames and desired titles here
+
 file_map = {
    r'C:\Users\ilseh\OneDrive\Documenten\Response_data\reliability_cluster_1_method_0.csv': 'Method_0',
     r'C:\Users\ilseh\OneDrive\Documenten\Response_data\reliability_cluster_1_method_a.csv': 'Method_a',
@@ -32,7 +32,7 @@ def analyze_and_export(mapping, output_excel='Gene_Analysis_Results.xlsx'):
         df = pd.read_csv(file_path, index_col=0)
         row_sums = df.sum(axis=1).astype(int)
         
-        # --- Visualization Section ---
+        # Visualization Section 
         # sns.histplot(row_sums, bins=12, kde=True, ax=axes[i], color='teal', edgecolor='white')
         sns.histplot(row_sums, discrete=True, kde=True, ax=axes[i], color='teal', edgecolor='white')
         axes[i].set_xlim(-0.5, 10.5)  # Centers the '0' and '10' bars nicely
@@ -40,7 +40,7 @@ def analyze_and_export(mapping, output_excel='Gene_Analysis_Results.xlsx'):
         axes[i].set_xlabel('Times Selected')
         if i == 0: axes[i].set_ylabel('Number of Genes')
         
-        # --- Table Data Section ---
+        # Table Data Section 
         # Get counts for every sum (how many genes selected 0, 1, 2... times)
         counts = row_sums.value_counts().sort_index().reset_index()
         counts.columns = ['Selection Count', 'Gene Count']
@@ -52,7 +52,7 @@ def analyze_and_export(mapping, output_excel='Gene_Analysis_Results.xlsx'):
     plt.savefig('gene_predictor_plots.png', dpi=300)
     plt.show()
 
-    # --- Excel Export Section ---
+    # Excel Export Section 
     if all_method_counts:
         # Combine data and pivot so Methods are columns
         combined_df = pd.concat(all_method_counts)
