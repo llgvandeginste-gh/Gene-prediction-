@@ -1,19 +1,16 @@
 import pandas as pd
 import numpy as np
 
-# 1. Load the matrix you just created
+
 file_path = r'C:\Users\ilseh\OneDrive\Documenten\Data_files_RP\matrix_with_TC_3.csv'
 df = pd.read_csv(file_path)
 
-# 2. Identify all the parameter (method) columns
-# We assume they all start with 'method_'
 method_cols = [col for col in df.columns if col.startswith('method_')]
 
-# 3. Ensure TC is a number (if there are NaNs from the merge, we fill them with 0)
 df['TC'] = pd.to_numeric(df['TC'], errors='coerce').fillna(0)
 
-# 4. Calculate the average TC for each column
-# We multiply the column (0 or 1) by the TC value, then divide by the sum of 1s
+# 1. Calculate the average TC for each column
+# Multiply the column (0 or 1) by the TC value, then divide by the sum of 1s
 results = {}
 
 for col in method_cols:
@@ -26,14 +23,14 @@ for col in method_cols:
     else:
         results[col] = 0  # In case a column has no predictors at all
 
-# 5. Convert results to a new DataFrame
+# 2. Convert results to a new DataFrame
 df_averages = pd.DataFrame(list(results.items()), columns=['Parameter_Combination', 'Average_TC'])
 
-# 6. Save the results to a new file
+# 3. Save the results to a new file
 output_path = r'C:\Users\ilseh\OneDrive\Documenten\Data_files_RP\average_tc_results_3.csv'
 df_averages.to_csv(output_path, index=False)
 
-print(f"Success! Averages calculated for {len(method_cols)} columns.")
+print(f"Averages calculated for {len(method_cols)} columns.")
 print(df_averages.head())
 
 # import pandas as pd
