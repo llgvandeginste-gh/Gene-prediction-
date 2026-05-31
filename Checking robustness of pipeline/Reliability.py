@@ -48,7 +48,6 @@ for c in clusters:
 
 print("\nAnalysis complete.")
 
-# --- UPDATED SUMMARY BLOCK ---
 
 summary_data = []
 
