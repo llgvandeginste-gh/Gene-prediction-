@@ -1,7 +1,7 @@
 import pandas as pd
 import os
 
-# 1. Setup - Pointing to the new subfolder
+
 base_path = r'/Users/familievandeginste/Documents/Predictors_responders'
 data_path = os.path.join(base_path, 'Predictors') # The subfolder
 clusters = [1, 2, 3]
@@ -11,7 +11,7 @@ runs = range(1, 11)
 def super_clean(text):
     return str(text).strip().replace('"', '').replace("'", "")
 
-# 2. Process
+# 1. Process
 for c in clusters:
     # Load the clean gene list for this cluster
     master_txt = os.path.join(base_path, f"gene_list_cluster_{c}.txt")
@@ -48,7 +48,7 @@ for c in clusters:
                 # Debug message to ensure we aren't missing files
                 print(f"  Warning: Missing {pred_file}")
         
-        # 3. Save
+        # 2. Save
         output_name = f"reliability_cluster_{c}_method_{m}.csv"
         df.to_csv(os.path.join(base_path, output_name))
         print(f"  Method {m}: {df.values.sum()} matches found.")
