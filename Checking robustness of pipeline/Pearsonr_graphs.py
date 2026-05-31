@@ -3,7 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# --- CONFIGURATION ---
 input_dir = '/Users/familievandeginste/Documents/Pearsonr_tests/Final_model_parquet_all/Renamed_Results'
 output_plots_dir = '/Users/familievandeginste/Documents/Pearsonr_tests/Density_Plots'
 
@@ -55,7 +54,6 @@ for c in clusters:
 
 print(f"\nDone! All 15 plots are in: {output_plots_dir}")
 
-# --- ADD THIS AT THE VERY END OF YOUR SCRIPT ---
 
 total_files_found = 0
 for c in clusters:
@@ -64,6 +62,4 @@ for c in clusters:
             if os.path.exists(os.path.join(input_dir, f"final_model_results_{c}_{m}_{r}.parquet")):
                 total_files_found += 1
 
-print("---------------------------------")
 print(f"VERIFICATION: Found {total_files_found} out of 150 expected files.")
-print("---------------------------------")
