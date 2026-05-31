@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# 1. Mapping - Keep your same filenames and desired titles here
+
 file_map = {
    r'C:\Users\ilseh\Downloads\reliability_cluster_3_method_0.csv': 'Method_0',
     r'C:\Users\ilseh\Downloads\reliability_cluster_3_method_a.csv': 'Method_a',
@@ -13,14 +13,14 @@ file_map = {
 }
 
 def analyze_and_export(mapping, output_excel='Gene_Analysis_Results.xlsx'):
-    # Set the visual style
+    
     sns.set_theme(style="whitegrid")
     num_methods = len(mapping)
     fig, axes = plt.subplots(1, num_methods, figsize=(4 * num_methods, 5), sharey=True)
     
     if num_methods == 1: axes = [axes]
 
-    # This list will hold the frequency data for the Excel table
+   
     all_method_counts = []
 
     for i, (file_path, clean_name) in enumerate(mapping.items()):
@@ -32,13 +32,13 @@ def analyze_and_export(mapping, output_excel='Gene_Analysis_Results.xlsx'):
         df = pd.read_csv(file_path, index_col=0)
         row_sums = df.sum(axis=1).astype(int)
         
-        # --- Visualization Section ---
+        # Visualization Section 
         sns.histplot(row_sums, bins=12, kde=True, ax=axes[i], color='teal', edgecolor='white')
         axes[i].set_title(clean_name, fontweight='bold', fontsize=14, pad=20)
         axes[i].set_xlabel('Times Selected')
         if i == 0: axes[i].set_ylabel('Number of Genes')
         
-        # --- Table Data Section ---
+        # Table Data Section 
         # Get counts for every sum (how many genes selected 0, 1, 2... times)
         counts = row_sums.value_counts().sort_index().reset_index()
         counts.columns = ['Selection Count', 'Gene Count']
@@ -50,7 +50,7 @@ def analyze_and_export(mapping, output_excel='Gene_Analysis_Results.xlsx'):
     plt.savefig('gene_predictor_plots.png', dpi=300)
     plt.show()
 
-    # --- Excel Export Section ---
+    # Excel Export Section 
     if all_method_counts:
         # Combine data and pivot so Methods are columns
         combined_df = pd.concat(all_method_counts)
